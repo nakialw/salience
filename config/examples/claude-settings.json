@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "defaultMode": "dontAsk"
+  },
+  "enabledPlugins": {
+    "gopls-lsp@claude-plugins-official": true
+  },
+  "effortLevel": "max",
+  "promptSuggestionEnabled": false,
+  "autoUpdatesChannel": "latest",
+  "skipDangerousModePermissionPrompt": true
+}

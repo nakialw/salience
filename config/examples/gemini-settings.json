@@ -1,0 +1,76 @@
+{
+  "security": {
+    "folderTrust": {
+      "featureEnabled": true,
+      "enabled": true
+    },
+    "auth": {
+      "selectedType": "oauth-personal"
+    },
+    "enablePermanentToolApproval": true
+  },
+  "ide": {
+    "hasSeenNudge": true,
+    "enabled": true
+  },
+  "context": {
+    "loadFromIncludeDirectories": true,
+    "discoveryMaxDirs": 9999,
+    "loadMemoryFromIncludeDirectories": true,
+    "fileFiltering": {
+      "respectGitIgnore": false
+    }
+  },
+  "general": {
+    "preferredEditor": "cursor",
+    "vimMode": false,
+    "previewFeatures": true,
+    "enablePromptCompletion": false,
+    "sessionRetention": {
+      "enabled": true
+    },
+    "enableAutoUpdate": true
+  },
+  "ui": {
+    "theme": "GitHub",
+    "showStatusInTitle": true,
+    "hideTips": true,
+    "hideBanner": true,
+    "footer": {
+      "hideSandboxStatus": true,
+      "hideContextPercentage": false
+    },
+    "showModelInfoInChat": true,
+    "hideFooter": true,
+    "hideWindowTitle": true,
+    "accessibility": {
+      "enableLoadingPhrases": false
+    },
+    "loadingPhrases": "off"
+  },
+  "tools": {
+    "shell": {
+      "showColor": true
+    },
+    "autoAccept": true,
+    "useRipgrep": true,
+    "truncateToolOutputLines": 10000
+  },
+  "experimental": {
+    "introspectionAgentSettings": {
+      "enabled": true
+    }
+  },
+  "output": {
+    "format": "text"
+  },
+  "agents": {
+    "overrides": {
+      "codebase_investigator": {
+        "runConfig": {
+          "maxTurns": 999
+        }
+      }
+    }
+  }
+}

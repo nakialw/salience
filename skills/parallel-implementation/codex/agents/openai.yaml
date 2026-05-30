@@ -1,0 +1,7 @@
+interface:
+  display_name: "Parallel Implementation"
+  short_description: "Create safe wave-based work splits"
+  default_prompt: "Use $parallel-implementation to build a wave-based plan with disjoint write scopes and integration steps."
+
+policy:
+  allow_implicit_invocation: true

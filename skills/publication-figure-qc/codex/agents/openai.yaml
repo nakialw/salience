@@ -1,0 +1,4 @@
+interface:
+  display_name: "Publication Figure QC"
+  short_description: "Verify figures at publication quality"
+  default_prompt: "Use $publication-figure-qc to rebuild a figure from vector sources and explicitly verify the final PNG for typography, spacing, clipping, and other visual defects."

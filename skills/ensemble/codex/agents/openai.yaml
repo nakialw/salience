@@ -1,0 +1,7 @@
+interface:
+  display_name: "Ensemble Check"
+  short_description: "Run a small multi-LLM comparison"
+  default_prompt: "Use $ensemble-check to compare Codex, Claude, and Gemini on this task and synthesize the result."
+
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,7 @@
+interface:
+  display_name: "Task Plans"
+  short_description: "Create and execute serial task plans"
+  default_prompt: "Use $task-plans to create a structured plan file and execute it phase by phase."
+
+policy:
+  allow_implicit_invocation: true

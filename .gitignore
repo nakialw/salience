@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+
+# Calibration outputs (regenerate locally)
+docs/calibration/runs/
+skills/immune/references/calibration-runs-*/
+*.log
+*.plain.txt

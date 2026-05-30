@@ -1,0 +1,21 @@
+id	source	expected_gate	prompt
+01	geomx/PHASE_3	immuno	Explain why 0/86 WTA pathways stay significant after subject-blocked Wilcoxon in huCART19-IL18 GeoMx Phase 3, and whether IL-18 Signaling missing from the Reactome panel limits interpretation.
+02	atera/relapse_ecology	immuno	Does CAR-T relapse in subject S6 represent simple tumor regrowth or CXCL12-anchored re-follicularization with a myeloid-Tfh interregnum? Summarize the five convergent lines of evidence.
+03	cosmx/COMMOT	immuno	How does IL-18 armoring change COMMOT ligand-receptor communication in the tumor microenvironment compared to unarmored CAR-T, and what do responder vs non-responder differences imply?
+04	sc-infusion/cohort	immuno	Does peak CAR-T expansion in peripheral blood explain clinical response in huCART19-IL18, or does product cytokine programming matter more when expansion and outcome dissociate?
+05	cosmx/LARIS	immuno	How should we interpret LARIS interactions when 93-99% of pairs hit the p-value floor at 500 permutations—should biological claims rely on rank and Reactome concordance instead?
+06	cosmx/NCEM	immuno	Do plasma cell-rich niches in NHL spatial data explain localized immunosuppression that could let tumors evade CAR-T restimulation?
+07	visium_hd/pathway_de	immuno	Integrate the Myc Targets V1, G2M Checkpoint, and E2F targets pathway shifts post-infusion in Visium HD subject 36 and state whether they indicate proliferative remodeling vs artifact.
+08	atera/inflammasome	immuno	Summarize inflammasome-related spatial scoring in the Atera Xenium cohort and whether NLRP3 priming vs activation is distinguishable in the data we have.
+09	atera/suppression_atlas	immuno	What drives the T cell suppression score depression of -0.151 in overlap hotspots—is it exhaustion, exclusion, or stromal barrier effects?
+10	cosmx/nhl_cell_typing	immuno	Why did separating CD8 from NK in the 14-type scheme reveal stronger cytotoxic effector activation (GZMB, PRF1) in responder CD8 T cells than the 9-type RCTD reference?
+11	cosmx/spatial_pathway	immuno	After huCART19-IL18, why does neighborhood context explain more pathway variance than cell-intrinsic identity, and how does subcluster collapse support that?
+12	cosmx/copro_s20	immuno	Interpret Tregs as universal spatial hub and B-cell emergence as post-therapy anchor in subject 20 co-progression analysis—are these independent or coupled mechanisms?
+13	sc-infusion/cross_platform	immuno	Reconcile infusion product barcoding, flow cytometry, and CosMx spatial readouts for the same trial: what can each modality not prove alone?
+14	visium_hd/spagrn	immuno	How does CAR-T-mediated tumor clearance change spatially patterned regulon architecture in follicular lymphoma Visium HD data?
+15	atera/xenium_mast	immuno	Does the biopsy composition confound in Xenium WTX MAST DE invalidate cross-timepoint IFN-gamma signatures, and how would you control for it?
+16	cosmx/niche_analysis	immuno	Summarize niche remodeling after huCART19-IL18 in CosMx: which niches expand, contract, or flip composition in responders vs non-responders?
+17	cosmx/differential_composition	immuno	Which cell types drive differential composition between pre and post infusion in the CosMx cohort, and are shifts consistent with IL-18-driven myeloid activation?
+18	repo_admin	none	List the columns in submission/working/cosmx/commot/results/commot_results/per_sample/subject2_pre_cluster_comm/TAC_communication_pvalue.csv and what each column means statistically.
+19	repo_admin	none	What is the recommended git workflow in this repository for adding a new analysis module under submission/working?
+20	short_immuno	immuno	Explain [[PD-1]] in one paragraph for a grants reviewer.
