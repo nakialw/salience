@@ -48,6 +48,17 @@ Skip immuno gate when the primary task is file/schema/repo admin and glossary hi
 
 Until Tier 1 human labels: treat scores as **ordinal ranking**, not calibrated probabilities.
 
+
+## Checkability tiering + clarify route (v1.2)
+
+Flat additive `tap_priority` lets a span score high on **Conceptual density + Interactivity + Causal/comparative** while scoring **0** on Verifiability and Decomposability. But those density/causal dimensions reward *intellectually heavy* spans, which are frequently the **least externally checkable** — and introspective review is unreliable exactly there (Huang et al., [arXiv:2310.01798](https://arxiv.org/abs/2310.01798)). Flat scoring therefore steered the suite toward its blind spot.
+
+Fix (Step 3b/4): after scoring, split candidates into a **checkable tier** (≥1 on Verifiability OR Decomposability) and an **interpretive tier** (0 on both); fill the auto-tap cap from the checkable tier first. Demotion, not exclusion — dense-but-uncheckable spans still tappable if slots remain, but never displace a checkable one. Rationale: Kamoi et al. ([arXiv:2406.01297](https://arxiv.org/abs/2406.01297)) — self-correction works when feedback is reliable or tasks are decomposable/verifiable, so prioritize the spans that *have* a reliable external check.
+
+Route (Step 6b): checkable-tier taps whose check is the **literature** (empirical biological claim, not a local file/stat) go to [`clarify`](../../clarify/claude/clarify.md) for retrieval-grounded verification instead of `tap` introspection — the canonical verifiable tap. File/stat-checkable spans keep `tap`'s read-before-Pass-1 path.
+
+This resolves the tension noted at v1.1: `immune` was scoring *up* the densest/most-causal spans, which are often the least verifiable — i.e. steering `tap` toward its weakest regime. Tiering + the clarify route point it at its strengths instead.
+
 ## What we explicitly avoid
 
 - Theme-based neglect tables (cherry-picked objections)

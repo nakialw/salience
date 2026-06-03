@@ -97,10 +97,28 @@ if [ -d "$HOME/.claude" ]; then
             "$HOME/.claude/commands/tap.md"
   link_file "$REPO_DIR/skills/immune/claude/immune.md" \
             "$HOME/.claude/commands/immune.md"
+  link_file "$REPO_DIR/skills/clarify/claude/clarify.md" \
+            "$HOME/.claude/commands/clarify.md"
+  link_file "$REPO_DIR/skills/note/claude/note.md" \
+            "$HOME/.claude/commands/note.md"
+  link_file "$REPO_DIR/skills/introspect/claude/introspect.md" \
+            "$HOME/.claude/commands/introspect.md"
+  link_file "$REPO_DIR/skills/anterospect/claude/anterospect.md" \
+            "$HOME/.claude/commands/anterospect.md"
 
   # Shared references: tap + immune (tap suite)
   link_file "$REPO_DIR/skills/tap/references/sources.md" \
             "$HOME/.claude/commands/references/tap/sources.md"
+  link_file "$REPO_DIR/skills/clarify/references/sources.md" \
+            "$HOME/.claude/commands/references/clarify/sources.md"
+  link_file "$REPO_DIR/skills/note/references/sources.md" \
+            "$HOME/.claude/commands/references/note/sources.md"
+  link_file "$REPO_DIR/skills/note/scripts/note-hook.sh" \
+            "$HOME/.claude/commands/references/note/note-hook.sh"
+  link_file "$REPO_DIR/skills/introspect/references/sources.md" \
+            "$HOME/.claude/commands/references/introspect/sources.md"
+  link_file "$REPO_DIR/skills/anterospect/references/sources.md" \
+            "$HOME/.claude/commands/references/anterospect/sources.md"
   link_file "$REPO_DIR/skills/immune/references/immuno-glossary.md" \
             "$HOME/.claude/commands/references/immune/immuno-glossary.md"
   link_file "$REPO_DIR/skills/immune/references/span-selection.md" \

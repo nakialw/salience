@@ -10,6 +10,8 @@ __pycache__/
 
 # Calibration outputs (regenerate locally)
 docs/calibration/runs/
+docs/calibration/runs-*/
 skills/immune/references/calibration-runs-*/
 *.log
 *.plain.txt
+summary.tsv

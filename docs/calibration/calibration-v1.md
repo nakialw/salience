@@ -45,10 +45,10 @@ Human labels per id: should_gate (y/n), spans (text + score 1–5). Tune `tap_pr
 
 ```bash
 # Quick smoke (5 prompts, ~10–15 min)
-SMOKE=1 ./skills/immune/scripts/run-immune-calibration.sh
+SMOKE=1 ./scripts/run-immune-calibration.sh
 
 # Full batch (~35–40 min)
-./skills/immune/scripts/run-immune-calibration.sh
+./scripts/run-immune-calibration.sh
 ```
 
 Record post–v1.1 run directory here after smoke passes.

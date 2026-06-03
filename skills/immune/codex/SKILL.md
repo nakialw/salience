@@ -83,14 +83,26 @@ For each candidate, add **+1** per dimension satisfied (max 5). Document scores 
 - Already `[[tapped]]`: exclude from auto selection (manual wins)
 - &lt;3 words and only one generic glossary term: −2 (usually skip)
 
+
+### Step 3b — Tier by checkability (re-weighting, v1.2)
+
+A high `tap_priority` can come purely from **Conceptual density + Interactivity + Causal/comparative** — but those reward spans that are *intellectually heavy*, not spans that can be *externally checked*. The heaviest, most causal claims ("CD8 programming **drives** responder outcomes") are often the **least** verifiable, and those are exactly where `tap`'s introspective review is weakest (Huang et al.: intrinsic self-correction fails without an external signal). Flat additive scoring therefore steers the suite toward its blind spot.
+
+Fix: after scoring, split candidates into two tiers:
+
+- **Checkable tier** — scored **≥1 on Verifiability OR Decomposability**. These have an external check (data, repo file, named method, or the literature), so `tap`'s adversarial review is reliable on them (Kamoi et al.).
+- **Interpretive tier** — scored **0 on both** Verifiability and Decomposability (dense/causal but not externally checkable).
+
+**Fill the auto-tap cap from the checkable tier first**, in `tap_priority` order. Only if slots remain (and any candidate clears the threshold) pull from the interpretive tier. This is a **demotion, not exclusion** — a dense-but-uncheckable span can still be tapped if room is left, but never displaces a checkable one. Effect: `immune` hands `tap` (and `clarify`) the spans they handle best, instead of impressive-but-unfalsifiable ones.
+
 ## Step 4 — Select spans
 
-1. Sort candidates by `tap_priority` (descending).
-2. Take **top 3–6** spans (hard cap).
+1. Sort candidates by `tap_priority` (descending) **within each tier** (Step 3b).
+2. Fill the **top 3–6** slots (hard cap) from the **checkable tier first**, then the interpretive tier only if slots remain.
 3. Merge overlapping spans if scores within 1 point — keep the superset.
 4. Wrap selected text in `[[...]]` in the **working copy** of the prompt only.
 
-If no candidate scores ≥2, auto-tap **at most 1** highest span or none — prefer under-tapping to bracketing the whole prompt.
+If no candidate scores ≥2, auto-tap **at most 1** highest span or none — prefer under-tapping to bracketing the whole prompt. A checkable-tier span is preferred for that single slot even if an interpretive span scores equal.
 
 ## Step 5 — Report (visibility, mandatory)
 
@@ -120,20 +132,40 @@ Apply the full **`tap`** workflow from [../tap/codex/SKILL.md](../tap/codex/SKIL
 
 If the prompt cites a **repo path** (`submission/…`, concrete filename): **Read** the file before Pass 1 claims about its contents.
 
+
+### Step 6b — Route literature-checkable spans to `clarify` (v1.2)
+
+For each **checkable-tier** tap, decide *what kind* of check applies:
+
+- **Repo/file or stats check** (claim is verifiable against a named file, dataset, or method in the prompt) → stays in `tap`: read the file / inspect the data, then red-team the draft against it. This is the existing read-before-Pass-1 path.
+- **Literature check** (an empirical biological claim checkable against published evidence — e.g. "IL-18 armoring enhances CAR-T persistence", a mechanism or trial-outcome assertion not tied to a local file) → route to [`clarify`](../../clarify/claude/clarify.md) on that claim. `clarify` retrieves real PubMed/trial/preprint evidence and returns a 3-way verdict + strength tier; `tap`'s red-team then reconciles the draft against that verdict instead of introspecting.
+
+This is the canonical **verifiable tap**: the external check (retrieval) is exactly the regime where adversarial review is reliable rather than guesswork. Note the verdict inline on the tap, e.g. `(clarify: SUPPORTS/Strong)` or `(clarify: NEI/Contested)`. When `clarify` returns **Contested/NEI** on a claim that must still appear in the answer, the draft must represent that uncertainty faithfully (hedge, attribute, state the split) rather than asserting it.
+
+Interpretive-tier taps (no external check) remain on `tap`'s introspective review — but they were filled last and only if slots remained, so they no longer crowd out the checkable ones.
+
 ## Step 7 — Footers (order, separate lines)
 
 After the final answer body:
 
 1. `— immune · N auto (M manual)` — plain text, **never** append tap info
-2. `— tap · …` — one line per tap skill; plain text, no bold
+2. `— clarify · …` — one line, only if a span was routed to `clarify` (Step 6b); plain text
+3. `— tap · …` — one line per tap skill; plain text, no bold
 
-## Worked flow (abbreviated)
+Keep each footer on its **own line** — never merge `— immune ·`, `— clarify ·`, and `— tap ·` into one.
+
+## Worked flow (abbreviated, v1.2)
 
 **Prompt:** `Explain whether post-infusion CD8 cytotoxic programming explains responder outcomes in huCART19-IL18 and how IFNg-myeloid spatial gradients relate to IL-18 armoring.`
 
 - Gate: pass (trial + cell + spatial terms).
-- Auto-tap examples: `[[post-infusion CD8 cytotoxic programming]]`, `[[responder outcomes]]`, `[[IFNg-myeloid spatial gradients]]`, `[[IL-18 armoring]]` — scores ~4–5; cap may drop one borderline span.
-- Show Auto-tapped line → run `tap` → answer + both footers.
+- Candidates + tiering:
+  - `[[IL-18 armoring]]` → enhances persistence: an empirical, **literature-checkable** claim → checkable tier.
+  - `[[IFNg-myeloid spatial gradients]]` → checkable vs the spatial data/files if named → checkable tier.
+  - `[[post-infusion CD8 cytotoxic programming explains responder outcomes]]` → dense + causal but **interpretive** (no external check) → interpretive tier; filled only if slots remain.
+- Fill cap from checkable tier first → the verifiable spans take the slots; the heavy "explains responder outcomes" span is demoted (still tappable if room).
+- Route (Step 6b): `IL-18 armoring → CAR-T persistence` goes to **`clarify`** (retrieval → e.g. `SUPPORTS/Moderate`); the spatial-gradient span stays in `tap` and is read against the data file; the interpretive CD8 span, if tapped, stays on `tap` introspection.
+- Show Auto-tapped line → run `tap` (+ `clarify` where routed) → answer + footers (`— immune`, then `— clarify` if a span routed, then `— tap`).
 
 ## Additional resources
 

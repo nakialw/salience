@@ -37,7 +37,9 @@ Score candidates +1 each for: interactivity (≥2 constraints), decomposability,
 
 Penalties: already tapped; tiny generic-only phrases; metadata-only cell-type labels in schema prompts.
 
-Top **3–6** spans → `[[...]]` in working copy. Merge overlaps.
+**Tier by checkability (v1.2):** split candidates into a **checkable tier** (≥1 on verifiability OR decomposability — has an external check) and an **interpretive tier** (0 on both — dense/causal but unfalsifiable). Fill the 3–6 cap from the **checkable tier first**; pull interpretive spans only if slots remain. Demotion, not exclusion. This stops the densest-but-uncheckable spans from crowding out the ones `tap`/`clarify` handle reliably (Huang: introspection fails without an external signal; Kamoi: it works when verifiable).
+
+Top spans → `[[...]]` in working copy. Merge overlaps.
 
 ### Step 5 — Show before answer (mandatory)
 
@@ -55,13 +57,16 @@ Run complete **tap** workflow on augmented prompt (`tap.md` command): draft → 
 
 If prompt cites `submission/…` or a concrete file path: **Read** before claims about file contents.
 
+**Route literature-checkable taps to `clarify` (v1.2):** for a checkable-tier tap, if the check is a **local file/stat** → stays in `tap` (read the file, red-team against it). If it's an **empirical biological claim** checkable against published evidence (mechanism, trial outcome, not a local file) → route to `clarify.md` on that claim; `tap`'s red-team reconciles the draft against `clarify`'s retrieved verdict instead of introspecting. Note it inline, e.g. `(clarify: SUPPORTS/Strong)`. If `clarify` returns Contested/NEI, the draft must represent that uncertainty faithfully. Interpretive-tier taps stay on `tap` introspection.
+
 Deliver per **tap** Step 5 user-visible structure — adversarial work stays internal.
 
 ### Step 7 — Footers
 
-After answer body, **two separate plain-text lines** (never merge):
+After answer body, **separate plain-text lines** (never merge):
 
 1. `— immune · N auto (M manual)`
-2. `— tap · …` (from tap skill)
+2. `— clarify · …` (only if a span was routed to clarify)
+3. `— tap · …` (from tap skill)
 
 Full spec: `skills/immune/codex/SKILL.md`.
